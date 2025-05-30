@@ -1,8 +1,9 @@
-# admin_panel/urls.py
-
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from .views import ProductViewSet, DiscountViewSet, TransactionViewSet, CustomerViewSet
+from .views import (
+    ProductViewSet, DiscountViewSet, TransactionViewSet, CustomerViewSet,
+    UploadProductImage
+)
 
 router = DefaultRouter()
 router.register(r'products', ProductViewSet)
@@ -11,5 +12,7 @@ router.register(r'transactions', TransactionViewSet)
 router.register(r'customers', CustomerViewSet)
 
 urlpatterns = [
-    path('api/admin/', include(router.urls)),
+    path('', include(router.urls)),
+
+    path('products/<int:pk>/upload-images/', UploadProductImage.as_view(), name='upload-images'),
 ]

@@ -1,13 +1,21 @@
-# admin_panel/serializers.py
-
 from rest_framework import serializers
-from .models import Product, Discount, Transaction, Customer
+from .models import Product, Discount, Transaction, Customer, ProductImage  # ✅ include ProductImage
+
+
+class ProductImageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ProductImage
+        fields = ['id', 'image']
 
 class ProductSerializer(serializers.ModelSerializer):
+    images = ProductImageSerializer(many=True, read_only=True)
+
     class Meta:
         model = Product
-        fields = ['id', 'name', 'price', 'stock', 'description', 'created_at']
-
+        fields = [
+            'id', 'name', 'description', 'price', 'stock',
+            'category', 'is_featured', 'created_at', 'images'
+        ]
 
 class DiscountSerializer(serializers.ModelSerializer):
     class Meta:
