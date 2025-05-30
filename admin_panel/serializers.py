@@ -6,7 +6,8 @@ from .models import Product, Discount, Transaction, Customer
 class ProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
-        fields = '__all__'
+        fields = ['id', 'name', 'price', 'stock', 'description', 'created_at']
+
 
 class DiscountSerializer(serializers.ModelSerializer):
     class Meta:
